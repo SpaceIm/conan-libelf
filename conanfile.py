@@ -67,9 +67,9 @@ class LibelfConan(ConanFile):
             return self._autotools
         with tools.chdir(self._source_subfolder):
             self.run("autoreconf -fiv", run_environment=True)
-            args = ["--enable-shared={}".format("yes" if self.options.shared else "no")]
-            self._autotools = AutoToolsBuildEnvironment(self, win_bash=tools.os_info.is_windows)
-            self._autotools.configure(args=args)
+        args = ["--enable-shared={}".format("yes" if self.options.shared else "no")]
+        self._autotools = AutoToolsBuildEnvironment(self, win_bash=tools.os_info.is_windows)
+        self._autotools.configure(configure_dir=self._source_subfolder, args=args)
         return self._autotools
 
     def _build_autotools(self):
